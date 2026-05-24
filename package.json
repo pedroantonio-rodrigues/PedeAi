@@ -2,14 +2,18 @@
   "name": "backend-express",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/server.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js"
   },
+
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
+  
   "dependencies": {
     "@prisma/client": "^7.8.0",
     "bcrypt": "^6.0.0",
@@ -21,7 +25,10 @@
     "prisma": "^7.8.0"
   },
   "devDependencies": {
+    "@types/express": "^5.0.6",
     "@types/node": "^25.9.1",
-    "nodemon": "^3.1.14"
+    "nodemon": "^3.1.14",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^6.0.3"
   }
 }
