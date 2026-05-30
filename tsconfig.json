@@ -10,13 +10,13 @@
 
     "esModuleInterop": true,
 
-    "skipLibCheck": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
 
+    "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
 
-    "types": ["node"],
-
-    "ignoreDeprecations": "6.0"
+    "types": ["node"]
   },
 
   "include": ["src/**/*"],
