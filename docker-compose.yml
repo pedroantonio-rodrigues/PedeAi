@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: pedeai-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: pedeai
+      POSTGRES_USER: pedeai
+      POSTGRES_PASSWORD: pedeai
+    ports:
+      - "5432:5432"
+    volumes:
+      - pedeai_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pedeai -d pedeai"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pedeai_postgres_data:

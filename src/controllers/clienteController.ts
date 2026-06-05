@@ -33,5 +33,26 @@ export class ClienteController {
     }   
     return res.json(cliente);
     }
+
+    async atualizarCliente(req: Request, res: Response) {
+        try {
+            
+            const clienteData = await clienteService.atualizarCliente(Number(req.params.id), req.body);
+return res.status(200).json(clienteData);
+        } catch (error: any) {
+            return res.status(400).json({ message: error.message });
+        }
+    }
+
+    async deletarCliente(req: Request, res: Response) {
+        try { 
+            const { id } = req.params;
+            await clienteService.deletarCliente(Number(id));
+            return res.status(204).send();
+        
+        } catch (error: any) {
+            return res.status(404).json({ message: error.message });
+        }
+    }   
 }
 
