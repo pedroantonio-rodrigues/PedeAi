@@ -1,5 +1,6 @@
 import { Sequelize } from 'sequelize-typescript';
 import { Cliente } from '../models/Cliente';
+import { Produto } from '../models/Produto';
 
 export const sequelize = new Sequelize({
     dialect: 'postgres',
@@ -9,5 +10,5 @@ export const sequelize = new Sequelize({
     password: "pedeai",
     database: "pedeai",
     logging: false,
-    models: [Cliente,],
+    models: [Cliente, Produto],
 });
