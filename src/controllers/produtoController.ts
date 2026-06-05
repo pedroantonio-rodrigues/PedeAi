@@ -18,6 +18,41 @@ class ProdutoController {
         const produtos = await produtoService.listarProdutos();
         return res.status(200).json(produtos);
     }
+
+    async obterProdutoPorId(req: Request, res: Response) {
+        const { id } = req.params;
+        const produto = await produtoService.obterProdutoPorId(Number(id));
+
+        if (!produto) {
+            return res.status(404).json({ message: 'Produto não encontrado' });
+        }
+
+        return res.status(200).json(produto);
+    }
+
+    async atualizarProduto(req: Request, res: Response) {
+        try {
+            const { id } = req.params;
+
+            const produtoData = await produtoService.atualizarProduto(Number(id), req.body);
+
+            return res.status(200).json(produtoData);
+        } catch (error: any) {
+            return res.status(400).json({ message: error.message });
+        }
+    }
+
+    async deletarProduto(req: Request, res: Response) {
+        try {
+            const { id } = req.params;
+            await produtoService.deletarProduto(Number(id));
+            return res.status(204).send();
+        } catch (error: any) {
+            return res.status(404).json({ message: error.message });
+        }
+    }
+
 }
+
 
 export default new ProdutoController();
