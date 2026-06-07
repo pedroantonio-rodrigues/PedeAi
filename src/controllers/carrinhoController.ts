@@ -33,5 +33,30 @@ class CarrinhoController {
             return res.status(404).json({ message: error.message });
         }
     }
+
+    async removerProduto(req: Request, res: Response) {
+        try {
+            const { itemId } = req.params;
+
+            const itemRemovido = await carrinhoService.removerProduto(Number(itemId));
+
+            return res.json(itemRemovido);
+
+        } catch (error: any) {
+
+            return res.status(404).json({ message: error.message });
+        }
+    }
+
+    async limparCarrinho(req: Request, res: Response) {
+        try {
+            const { clienteId } = req.params;
+
+            const carrinhoLimpo = await carrinhoService.limparCarrinho(Number(clienteId));
+            return res.json(carrinhoLimpo);
+        } catch (error: any) {
+            return res.status(404).json({ message: error.message });
+        }
+    }
 }
 export default new CarrinhoController();

@@ -61,5 +61,29 @@ async buscarCarrinho(clienteId: number) {
             return carrinho;
         }
 
+async removerProduto(itemId: number) {
+    const item = await ItemCarrinho.findByPk(itemId);
+    
+    if (!item) {
+        throw new Error("Item não encontrado.");
+    }
+    
+    await item.destroy();
+
+    return { message: "Produto removido do carrinho." };
+    }
+
+async limparCarrinho(clienteId: number) {
+    
+    const carrinho = await Carrinho.findOne({ where: { clienteId } });
+
+    if (!carrinho) {
+        throw new Error("Carrinho não encontrado.");
+    }
+
+    await ItemCarrinho.destroy({ where: { carrinhoId: carrinho.id } });
+    return { message: "Carrinho limpo." };
+    }
+
 }
 export default new CarrinhoService();

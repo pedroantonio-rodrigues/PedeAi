@@ -8,6 +8,6 @@ const app = express();
 app.use(express.json());
 app.use('/clientes', clienteRoutes);
 app.use('/produtos', produtoRoutes);
-app.use('/carrinhos', carrinhoRoutes);
+app.use('/carrinho', carrinhoRoutes);
 
 export default app;
