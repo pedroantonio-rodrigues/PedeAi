@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import "dotenv/config";
 
-import app from "./app";7
+import app from "./app";
 import { sequelize } from "./config/database";
 
 const PORT = process.env.PORT || 3000;

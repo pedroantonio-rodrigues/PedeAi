@@ -1,0 +1,24 @@
+$kind: http-request
+name: http://localhost:3000/clientes
+description: Cria um cliente
+url: http://localhost:3000/clientes
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"nome\": \"Pedro\",\r
+
+    \  \"cpf\": \"12345678901\",\r
+
+    \  \"telefone\": \"41999999999\",\r
+
+    \  \"endereco\": \"Rua Teste, 123\"\r
+
+    }"
+settings:
+  strictSSL: false
+  followRedirects: true
+  disableCookies: false
+  maxResponseSize: 52428800
+order: 3874713396462285

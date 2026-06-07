@@ -1,0 +1,20 @@
+$kind: http-request
+name: http://localhost:3000/produtos
+url: http://localhost:3000/produtos
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"nome\": \"Coca-Cola 2L\",\r
+
+    \  \"descricao\": \"Refrigerante Coca-Cola 2 litros\",\r
+
+    \  \"preco\": 12.99,\r
+
+    \  \"estoque\": 20,\r
+
+    \  \"imagem\": \"coca2l.jpg\"\r
+
+    }"
+order: 3191375006272656

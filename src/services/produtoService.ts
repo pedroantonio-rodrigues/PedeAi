@@ -44,6 +44,6 @@ class ProdutoService {
         return await produto.destroy();
     }
 }
-    export default new ProdutoService();
+export default new ProdutoService();
 
 

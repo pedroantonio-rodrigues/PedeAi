@@ -1,4 +1,5 @@
-import { Table, Column, Model, DataType, Unique, CreatedAt, UpdatedAt } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, Unique, CreatedAt, UpdatedAt, HasOne } from 'sequelize-typescript';
+import { Carrinho } from './Carrinho';
 
 @Table({
     tableName: 'clientes',
@@ -9,26 +10,29 @@ export class Cliente extends Model {
         type: DataType.STRING(150),
         allowNull: false,
     })
-    nome!: string;
+    declare nome: string;
+
+    @HasOne(() => Carrinho)
+    carrinho!: Carrinho;
 
     @Unique
     @Column({
         type: DataType.STRING(11),
         allowNull: false,
     })
-    cpf!: string;
+    declare cpf: string;
 
     @Column({
         type: DataType.STRING,
         allowNull: false,
     })
-    telefone!: string;
+    declare telefone: string;
 
     @Column({
         type: DataType.STRING,
         allowNull: false,
     })
-    endereco!: string;
+    declare endereco: string;
 
     @CreatedAt
     declare createdAt: Date;

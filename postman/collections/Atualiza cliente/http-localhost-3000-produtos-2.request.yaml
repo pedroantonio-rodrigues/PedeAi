@@ -1,0 +1,23 @@
+$kind: http-request
+name: http://localhost:3000/produtos/2
+description: "Busca um produto pelo ID "
+url: http://localhost:3000/produtos/2
+method: GET
+body:
+  type: json
+  content: "{\r
+
+    \  \"nome\": \"Coca-Cola 2L\",\r
+
+    \  \"descricao\": \"Refrigerante atualizado\",\r
+
+    \  \"preco\": 13.99,\r
+
+    \  \"estoque\": 25,\r
+
+    \  \"imagemUrl\": \"coca2l.jpg\",\r
+
+    \  \"ativo\": true\r
+
+    }"
+order: 3701094073565284
