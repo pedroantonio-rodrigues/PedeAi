@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import carrinhoService from '../services/CarrinhoService';
+import carrinhoService from '../services/carrinhoService';
 
 class CarrinhoController {
 

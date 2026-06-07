@@ -3,6 +3,8 @@ import { Cliente } from '../models/Cliente';
 import { Produto } from '../models/Produto';
 import { Carrinho } from '../models/Carrinho';
 import { ItemCarrinho } from '../models/ItemCarrinho';
+import { ItemPedido } from '../models/ItemPedido';
+import { Pedido } from '../models/Pedido';
 
 export const sequelize = new Sequelize({
     dialect: 'postgres',
@@ -12,5 +14,5 @@ export const sequelize = new Sequelize({
     password: "pedeai",
     database: "pedeai",
     logging: false,
-    models: [Cliente, Produto, Carrinho, ItemCarrinho],
+    models: [Cliente, Produto, Carrinho, ItemCarrinho, Pedido, ItemPedido],
 });
