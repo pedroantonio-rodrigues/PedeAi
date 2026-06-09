@@ -62,6 +62,22 @@ class PedidoController {
             return res.status(500).json({ message: error.message });
         }
     }
+
+    async atualizarStatusPedido(req: Request, res: Response) {
+        try {
+
+            const { pedidoId } = req.params;
+            const { status } = req.body;
+
+            const pedido = await pedidoService.atualizarStatusPedido(Number(pedidoId), status);
+
+            return res.json(pedido);
+
+        } catch (error: any) {
+
+            return res.status(400).json({ message: error.message });
+        }
+    }           
 }
 
 export default new PedidoController();

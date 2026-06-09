@@ -79,6 +79,20 @@ class PedidoService {
             include: [ItemPedido]
         });
     }
+
+    async atualizarStatusPedido(pedidoId: number, status: string) {
+
+        const pedido = await Pedido.findByPk(pedidoId);
+
+        if (!pedido) {
+            throw new Error("Pedido não encontrado");
+        }
+
+        pedido.status = status;
+        await pedido.save();
+        return pedido;
+    }
+
 }
 
 export default new PedidoService();
