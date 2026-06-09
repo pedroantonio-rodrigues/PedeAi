@@ -2,6 +2,7 @@ import { Carrinho } from "../models/Carrinho";
 import { ItemCarrinho } from "../models/ItemCarrinho";
 import { Pedido } from "../models/Pedido";
 import { ItemPedido } from "../models/ItemPedido";
+import { StatusPedido } from "../enum/StatusPedido";
 
 
 class PedidoService {
@@ -82,13 +83,17 @@ class PedidoService {
 
     async atualizarStatusPedido(pedidoId: number, status: string) {
 
+        if(!Object.values(StatusPedido).includes(status as StatusPedido)) {
+            throw new Error("Status inválido");
+        }
+
         const pedido = await Pedido.findByPk(pedidoId);
 
         if (!pedido) {
             throw new Error("Pedido não encontrado");
         }
 
-        pedido.status = status;
+        pedido.status = status as StatusPedido;
         await pedido.save();
         return pedido;
     }

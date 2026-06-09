@@ -11,6 +11,7 @@ import {
 } from 'sequelize-typescript';
 import { Cliente } from './Cliente';
 import { ItemPedido } from './ItemPedido';
+import { StatusPedido } from '../enum/StatusPedido';
 
 @Table({
     tableName: 'pedidos',
@@ -27,12 +28,17 @@ export class Pedido extends Model {
     @BelongsTo(() => Cliente)
     declare cliente: Cliente;
 
-    @Default('PENDENTE')
     @Column({
-        type: DataType.STRING,
+        type: DataType.ENUM(
+            'PENDENTE', 
+            'CONFIRMADO', 
+            'EM_PREPARO', 
+            'SAIU_PARA_ENTREGA', 
+            'ENTREGUE', 
+            'CANCELADO'),
         allowNull: false,
     })
-    declare status: string;
+    declare status: StatusPedido;
 
     @Column({
         type: DataType.DECIMAL(10, 2),
