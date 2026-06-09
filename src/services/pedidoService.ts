@@ -13,12 +13,6 @@ class PedidoService {
             include: [{ model: ItemCarrinho }]
         });
 
-        console.log("Carrinho completo:");
-console.log(JSON.stringify(carrinho, null, 2));
-
-console.log("Itens:", carrinho?.itens);
-console.log("Quantidade:", carrinho?.itens?.length);
-
         if (!carrinho) {
             throw new Error("Carrinho não encontrado"); 
         }
@@ -28,7 +22,6 @@ console.log("Quantidade:", carrinho?.itens?.length);
         if (!itens || itens.length === 0) {
 
             throw new Error("Carrinho vazio");
-
         }
 
         let valorTotal = 0;
@@ -57,6 +50,34 @@ console.log("Quantidade:", carrinho?.itens?.length);
         });
 
         return pedido;
+    }
+
+    async listarPedidos() {
+
+        return await Pedido.findAll({
+            include: [ItemPedido]
+        });
+    }
+
+
+        async buscarPedidoPorId(pedidoId: number) {
+        const pedido = await Pedido.findByPk(pedidoId, {
+            include: [ItemPedido]
+        });
+
+        if (!pedido) {
+            throw new Error("Pedido não encontrado");
+        }
+
+        return pedido;
+    }
+
+
+    async listarPedidosPorCliente(clienteId: number) {
+        return await Pedido.findAll({
+            where: { clienteId },
+            include: [ItemPedido]
+        });
     }
 }
 
