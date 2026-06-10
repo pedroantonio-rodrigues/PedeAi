@@ -1,5 +1,6 @@
 import { Table, Column, Model, DataType, Unique, CreatedAt, UpdatedAt, HasOne } from 'sequelize-typescript';
 import { Carrinho } from './Carrinho';
+import { toDefaultValue } from 'sequelize/lib/utils';
 
 @Table({
     tableName: 'clientes',
@@ -34,10 +35,29 @@ export class Cliente extends Model {
     })
     declare endereco: string;
 
+    @Unique
+    @Column({
+        type: DataType.STRING,
+        allowNull: false,
+    })
+    declare email: string;
+
+    @Column({
+        type: DataType.STRING,
+        allowNull: false,
+    })
+    declare senha: string;
+
+    @Column({
+        type: DataType.ENUM('ADMIN', 'CLIENTE'), 
+        allowNull: false,
+        defaultValue: 'CLIENTE',  
+    })
+    declare role: string;
+
     @CreatedAt
     declare createdAt: Date;
 
     @UpdatedAt
     declare updatedAt: Date;
-
 }
