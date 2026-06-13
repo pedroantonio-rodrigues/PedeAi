@@ -52,6 +52,15 @@ class AuthController {
                 message: error.message
             }); 
         }
+    
+    }
+
+    async profile (req: Request, res: Response) { 
+
+        return res.json({
+            message: 'Acesso autorizado',
+            user: req.user
+        });
     }
 }
 

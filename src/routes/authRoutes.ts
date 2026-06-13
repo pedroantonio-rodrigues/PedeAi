@@ -1,9 +1,13 @@
 import { Router } from "express";
 import authController from "../controllers/authController";
+import { authMiddleware } from "../middlewares/authMiddleware";
+import { roleMiddleware } from "../middlewares/roleMiddleware";
 
 const router = Router();
 
 router.post( '/register', authController.register);
 router.post('/login', authController.login);
+router.get('/profile',authMiddleware, authController.profile)
+router.get('/admin', authMiddleware, roleMiddleware('ADMIN'), (req, res) => { return res.json({message: 'Area administrativa'});});
 
 export default router;

@@ -14,5 +14,5 @@ export const sequelize = new Sequelize({
     password: "pedeai",
     database: "pedeai",
     logging: false,
-    models: [Cliente, Produto, Carrinho, ItemCarrinho, Pedido, ItemPedido],
+    models: [Cliente, Produto, Carrinho, ItemCarrinho, Pedido, ItemPedido,],
 });
