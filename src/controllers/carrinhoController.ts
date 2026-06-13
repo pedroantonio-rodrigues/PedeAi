@@ -5,7 +5,7 @@ class CarrinhoController {
 
     async adicionarProduto(req: Request, res: Response) {
         try {
-            const { clienteId } = req.params;
+            const clienteId = req.user!.id;
             const { produtoId, quantidade } = req.body;
 
             const itemCarrinho = await carrinhoService.adicionarProduto(
@@ -22,9 +22,9 @@ class CarrinhoController {
 
     async buscarCarrinho(req: Request, res: Response) {
         try {
-            const { clienteId } = req.params;
+            const  clienteId = req.user!.id;
 
-            const carrinho = await carrinhoService.buscarCarrinho(Number(clienteId));
+            const carrinho = await carrinhoService.buscarCarrinho(clienteId);
 
             return res.json(carrinho);
 
@@ -50,9 +50,9 @@ class CarrinhoController {
 
     async limparCarrinho(req: Request, res: Response) {
         try {
-            const { clienteId } = req.params;
+            const  clienteId  = req.user!.id;
 
-            const carrinhoLimpo = await carrinhoService.limparCarrinho(Number(clienteId));
+            const carrinhoLimpo = await carrinhoService.limparCarrinho(clienteId);
             return res.json(carrinhoLimpo);
         } catch (error: any) {
             return res.status(404).json({ message: error.message });

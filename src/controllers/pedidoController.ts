@@ -5,9 +5,9 @@ class PedidoController {
     
     async finalizarPedido(req: Request, res: Response) {
         try {
-            const { clienteId } = req.params;
+            const clienteId = req.user!.id;
 
-            const pedido = await pedidoService.finalizarPedido(Number(clienteId));
+            const pedido = await pedidoService.finalizarPedido (clienteId);
 
             return res.status(201).json(pedido);
 
@@ -51,9 +51,9 @@ class PedidoController {
 
         try {
 
-            const { clienteId } = req.params;
+            const clienteId  = req.user!.id;
 
-            const pedidos = await pedidoService.listarPedidosPorCliente(Number(clienteId));
+            const pedidos = await pedidoService.listarPedidosPorCliente(clienteId);
 
             return res.json(pedidos);
 

@@ -5,10 +5,10 @@ import { roleMiddleware } from '../middlewares/roleMiddleware';
 
 const router = Router();
 
-router.get('/', PedidoController.listarPedidos);
-router.get('/cliente/:clienteId', PedidoController.listarPedidosPorCliente);
-router.get('/:pedidoId', PedidoController.buscarPedidoPorId);
-router.post('/:clienteId/finalizar', PedidoController.finalizarPedido);
+router.get('/', authMiddleware, roleMiddleware('ADMIN'), PedidoController.listarPedidos);
+router.get('/meus-pedidos', authMiddleware, PedidoController.listarPedidosPorCliente);
+router.get('/:pedidoId', authMiddleware, roleMiddleware('ADMIN'), PedidoController.buscarPedidoPorId);
+router.post('/finalizar',authMiddleware, PedidoController.finalizarPedido);
 router.patch('/:pedidoId/status',authMiddleware, roleMiddleware ('ADMIN'), PedidoController.atualizarStatusPedido);
 
 
