@@ -36,9 +36,10 @@ class CarrinhoController {
 
     async removerProduto(req: Request, res: Response) {
         try {
+            const clienteId = req.user!.id;
             const { itemId } = req.params;
 
-            const itemRemovido = await carrinhoService.removerProduto(Number(itemId));
+            const itemRemovido = await carrinhoService.removerProduto(clienteId, Number(itemId));
 
             return res.json(itemRemovido);
 
