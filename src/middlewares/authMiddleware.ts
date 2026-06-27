@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
+import { JWT_SECRET } from "../config/auth";
 
 interface TokenPayload {
     id: number;
@@ -25,7 +26,7 @@ export function authMiddleware(req: Request, res: Response, next: NextFunction) 
 const [, token] = authHeader.split(" ");
 
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'pedeai-secret') as TokenPayload;
+        const decoded = jwt.verify(token, JWT_SECRET) as TokenPayload;
 
         req.user = decoded;
 

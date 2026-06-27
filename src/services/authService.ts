@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs";
 import jwt  from "jsonwebtoken";
 
 import { Cliente } from "../models/Cliente";
+import { JWT_SECRET } from "../config/auth";
 
 class AuthService { 
 
@@ -63,7 +64,7 @@ class AuthService {
                 id: cliente.id,
                 role: cliente.role
             },
-            process.env.JWT_SECRET || 'pedeai-secret',
+            JWT_SECRET,
             {
                 expiresIn: '1d'
             }

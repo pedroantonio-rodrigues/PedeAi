@@ -6,13 +6,14 @@ import { ItemCarrinho } from '../models/ItemCarrinho';
 import { ItemPedido } from '../models/ItemPedido';
 import { Pedido } from '../models/Pedido';
 
-export const sequelize = new Sequelize({
+const databaseUrl = process.env.DATABASE_URL;
+
+if (!databaseUrl) {
+    throw new Error('DATABASE_URL não definida nas variáveis de ambiente.');
+}
+
+export const sequelize = new Sequelize(databaseUrl, {
     dialect: 'postgres',
-    host: "localhost",
-    port: 5432,
-    username: "pedeai",
-    password: "pedeai",
-    database: "pedeai",
     logging: false,
     models: [Cliente, Produto, Carrinho, ItemCarrinho, Pedido, ItemPedido,],
 });
