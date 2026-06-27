@@ -1,6 +1,5 @@
 import { Table, Column, Model, DataType, Unique, CreatedAt, UpdatedAt, HasOne } from 'sequelize-typescript';
 import { Carrinho } from './Carrinho';
-import { toDefaultValue } from 'sequelize/lib/utils';
 
 @Table({
     tableName: 'clientes',

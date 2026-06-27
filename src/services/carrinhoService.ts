@@ -9,11 +9,22 @@ class CarrinhoService {
         produtoId: number,
         quantidade: number
     ) { 
+
+
+        if (quantidade <= 0){
+            throw new Error("Quantidade deve ser maior que zero");
+        }
+
         const produto = await Produto.findByPk(produtoId);
 
         if (!produto) {
             throw new Error("Produto não encontrado.");
     }
+
+        if (produto.estoque < quantidade){
+            throw new Error("Estoque insuficiente");
+        }
+
         let carrinho = await Carrinho.findOne({ where: { clienteId } });
 
         if (!carrinho) { 

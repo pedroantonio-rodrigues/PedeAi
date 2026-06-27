@@ -1,14 +1,20 @@
 import { Router } from 'express';
 import { ClienteController } from '../controllers/clienteController';
+import { validate } from '../middlewares/validate';
+import {
+    criarClienteValidator,
+    atualizarClienteValidator,
+    idParamValidator,
+} from '../validators/clienteValidator';
 
 const router = Router();
 const clienteController = new ClienteController();
 
-router.post('/', clienteController.criarCliente);
+router.post('/', validate(criarClienteValidator), clienteController.criarCliente);
 router.get('/', clienteController.listarClientes);
-router.get('/:id', clienteController.obterClientePorId);
-router.put('/:id', clienteController.atualizarCliente);
-router.delete('/:id', clienteController.deletarCliente);
+router.get('/:id', validate(idParamValidator), clienteController.obterClientePorId);
+router.put('/:id', validate(atualizarClienteValidator), clienteController.atualizarCliente);
+router.delete('/:id', validate(idParamValidator), clienteController.deletarCliente);
 
 
 export default router;

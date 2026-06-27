@@ -18,7 +18,7 @@ export class Produto extends Model {
 
     @Column({
         type: DataType.STRING,
-        allowNull: false,
+        allowNull: true,
     })
     declare descricao?: string;
 
