@@ -3,6 +3,14 @@ import { Carrinho } from './Carrinho';
 
 @Table({
     tableName: 'clientes',
+    defaultScope: {
+        attributes: { exclude: ['senha'] },
+    },
+    scopes: {
+        comSenha: {
+            attributes: { include: ['senha'] },
+        },
+    },
 })
 
 export class Cliente extends Model {

@@ -1,5 +1,7 @@
 import { Router } from 'express';
 import { ClienteController } from '../controllers/clienteController';
+import { authMiddleware } from '../middlewares/authMiddleware';
+import { roleMiddleware } from '../middlewares/roleMiddleware';
 import { validate } from '../middlewares/validate';
 import {
     criarClienteValidator,
@@ -9,6 +11,8 @@ import {
 
 const router = Router();
 const clienteController = new ClienteController();
+
+router.use(authMiddleware, roleMiddleware('ADMIN'));
 
 router.post('/', validate(criarClienteValidator), clienteController.criarCliente);
 router.get('/', clienteController.listarClientes);

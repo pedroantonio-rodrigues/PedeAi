@@ -31,9 +31,9 @@ class AuthService {
             email,
             senha: senhaHash,
             role: 'CLIENTE'
-        }); 
+        });
 
-        return cliente; 
+        return Cliente.findByPk(cliente.id);
     }
 
     async login(
@@ -41,12 +41,12 @@ class AuthService {
         senha: string
     ){
 
-        const cliente = await Cliente.findOne({
+        const cliente = await Cliente.scope('comSenha').findOne({
             where: { email }
-        }); 
+        });
 
         if (!cliente){
-            throw new Error('Credenciais invalidas.'); 
+            throw new Error('Credenciais invalidas.');
         }
 
         const senhaValida = await bcrypt.compare(
