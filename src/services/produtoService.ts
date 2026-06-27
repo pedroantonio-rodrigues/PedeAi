@@ -1,5 +1,7 @@
 import { Produto } from '../models/Produto';
 
+const CAMPOS_PERMITIDOS = ["nome", "descricao", "preco", "estoque", "imagemUrl", "ativo"] as const;
+
 class ProdutoService {
 
     async criarProduto(produtoData: {
@@ -10,7 +12,9 @@ class ProdutoService {
         imagemUrl?: string;
         ativo?: boolean;
     }) {
-        return await Produto.create(produtoData);
+        return await Produto.create(produtoData, {
+            fields: [...CAMPOS_PERMITIDOS],
+        });
     }
     async listarProdutos() {
         return await Produto.findAll();
@@ -32,8 +36,9 @@ class ProdutoService {
         if (!produto) {
             throw new Error("Produto não encontrado."); 
         }
-        return await produto.update(produtoData);
-        return produto;
+        return await produto.update(produtoData, {
+            fields: [...CAMPOS_PERMITIDOS],
+        });
     }
 
     async deletarProduto(id: number) {

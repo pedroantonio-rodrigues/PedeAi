@@ -1,7 +1,9 @@
 import { Cliente } from "../models/Cliente";
 
+const CAMPOS_PERMITIDOS = ["nome", "cpf", "telefone", "endereco"] as const;
+
 export class ClienteService {
-    
+
     async criarCliente(clienteData: { 
         nome: string; 
         cpf: string; 
@@ -18,7 +20,9 @@ export class ClienteService {
         throw new Error("Cliente com este CPF já existe.");
     }
 
-    const novoCliente = await Cliente.create(clienteData);
+    const novoCliente = await Cliente.create(clienteData, {
+        fields: [...CAMPOS_PERMITIDOS],
+    });
     return novoCliente;
 }
 
@@ -51,7 +55,9 @@ async atualizarCliente(id: number, clienteData: {
     throw new Error("Outro cliente com este CPF já existe.");
     }
 
-    await cliente.update(clienteData);
+    await cliente.update(clienteData, {
+        fields: [...CAMPOS_PERMITIDOS],
+    });
     return cliente;
 }   
 
