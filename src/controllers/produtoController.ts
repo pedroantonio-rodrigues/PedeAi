@@ -1,5 +1,6 @@
-import { Request, Response } from 'express';    
+import { Request, Response } from 'express';
 import produtoService  from "../services/produtoService";
+import { getPaginationParams, buildPaginatedResult } from "../utils/pagination";
 
 
 class ProdutoController {
@@ -15,8 +16,9 @@ class ProdutoController {
         }   
     }
     async listarProdutos(req: Request, res: Response) {
-        const produtos = await produtoService.listarProdutos();
-        return res.status(200).json(produtos);
+        const { page, limit, offset } = getPaginationParams(req.query);
+        const { rows, count } = await produtoService.listarProdutos({ page, limit, offset });
+        return res.status(200).json(buildPaginatedResult(rows, count, page, limit));
     }
 
     async obterProdutoPorId(req: Request, res: Response) {
