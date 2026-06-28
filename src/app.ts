@@ -1,7 +1,9 @@
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
+import swaggerUi from "swagger-ui-express";
 import { apiLimiter } from "./middlewares/rateLimiter";
+import { swaggerSpec } from "./config/swagger";
 import clienteRoutes from './routes/clienteRoutes';
 import produtoRoutes from './routes/produtoRoutes';
 import carrinhoRoutes from "./routes/carrinhoRoutes";
@@ -10,6 +12,12 @@ import authRoutes from "./routes/authRoutes"
 import { notFoundHandler, errorHandler } from "./middlewares/errorHandler";
 
 const app = express();
+
+// Documentacao Swagger em /docs (spec em JSON em /docs.json). Montada antes do
+// helmet global porque a Swagger UI usa scripts/estilos inline que a CSP
+// estrita do helmet bloquearia.
+app.get("/docs.json", (_req, res) => res.json(swaggerSpec));
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use(helmet());
 app.use(cors({ origin: process.env.CORS_ORIGIN || "*" }));
