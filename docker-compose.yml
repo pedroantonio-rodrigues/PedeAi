@@ -1,4 +1,23 @@
 services:
+  app:
+    build: .
+    container_name: pedeai-app
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://pedeai:pedeai@postgres:5432/pedeai
+      JWT_SECRET: ${JWT_SECRET:-troque-este-segredo-em-producao}
+      PORT: 3000
+      CORS_ORIGIN: ${CORS_ORIGIN:-*}
+      # Usados apenas pelo seed manual: docker compose exec app npm run db:seed
+      ADMIN_NOME: ${ADMIN_NOME:-Administrador}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@pedeai.com}
+      ADMIN_SENHA: ${ADMIN_SENHA:-}
+    ports:
+      - "3000:3000"
+
   postgres:
     image: postgres:17-alpine
     container_name: pedeai-postgres
