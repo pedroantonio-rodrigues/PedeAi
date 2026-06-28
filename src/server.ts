@@ -11,7 +11,8 @@ async function startServer() {
         await sequelize.authenticate();
         console.log('Banco de dados conectado com sucesso.');
 
-        await sequelize.sync();
+        // O schema é gerenciado por migrations (npm run db:migrate),
+        // não mais por sequelize.sync().
 
         app.listen(PORT, () => {
             console.log(`Servidor rodando na porta ${PORT}`);
