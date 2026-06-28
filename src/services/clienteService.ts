@@ -1,4 +1,5 @@
 import { Cliente } from "../models/Cliente";
+import { PaginationParams } from "../utils/pagination";
 
 const CAMPOS_PERMITIDOS = ["nome", "cpf", "telefone", "endereco"] as const;
 
@@ -26,8 +27,12 @@ export class ClienteService {
     return novoCliente;
 }
 
-async listarClientes() {
-    return Cliente.findAll();
+async listarClientes({ limit, offset }: PaginationParams) {
+    return Cliente.findAndCountAll({
+        limit,
+        offset,
+        order: [["id", "ASC"]],
+    });
 }
 
 async obterClientePorId(id: number) {
