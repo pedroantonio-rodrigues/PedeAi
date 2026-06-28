@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import pedidoService from "../services/pedidoService";
+import { getPaginationParams, buildPaginatedResult } from "../utils/pagination";
 
 class PedidoController {
     
@@ -21,9 +22,10 @@ class PedidoController {
 
         try {
 
-            const pedidos = await pedidoService.listarPedidos();
+            const { page, limit, offset } = getPaginationParams(req.query);
+            const { rows, count } = await pedidoService.listarPedidos({ page, limit, offset });
 
-            return res.json(pedidos);
+            return res.json(buildPaginatedResult(rows, count, page, limit));
 
         } catch (error: any) {
 
@@ -53,9 +55,10 @@ class PedidoController {
 
             const clienteId  = req.user!.id;
 
-            const pedidos = await pedidoService.listarPedidosPorCliente(clienteId);
+            const { page, limit, offset } = getPaginationParams(req.query);
+            const { rows, count } = await pedidoService.listarPedidosPorCliente(clienteId, { page, limit, offset });
 
-            return res.json(pedidos);
+            return res.json(buildPaginatedResult(rows, count, page, limit));
 
         } catch (error: any) {
 

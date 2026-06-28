@@ -6,6 +6,7 @@ import { Produto } from "../models/Produto";
 import { Pedido } from "../models/Pedido";
 import { ItemPedido } from "../models/ItemPedido";
 import { StatusPedido } from "../enum/StatusPedido";
+import { PaginationParams } from "../utils/pagination";
 
 
 class PedidoService {
@@ -85,10 +86,14 @@ class PedidoService {
         });
     }
 
-    async listarPedidos() {
+    async listarPedidos({ limit, offset }: PaginationParams) {
 
-        return await Pedido.findAll({
-            include: [ItemPedido]
+        return await Pedido.findAndCountAll({
+            include: [ItemPedido],
+            limit,
+            offset,
+            order: [["id", "ASC"]],
+            distinct: true,
         });
     }
 
@@ -106,10 +111,14 @@ class PedidoService {
     }
 
 
-    async listarPedidosPorCliente(clienteId: number) {
-        return await Pedido.findAll({
+    async listarPedidosPorCliente(clienteId: number, { limit, offset }: PaginationParams) {
+        return await Pedido.findAndCountAll({
             where: { clienteId },
-            include: [ItemPedido]
+            include: [ItemPedido],
+            limit,
+            offset,
+            order: [["id", "ASC"]],
+            distinct: true,
         });
     }
 

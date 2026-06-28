@@ -1,5 +1,6 @@
 import {Request, Response} from 'express';
 import { ClienteService } from '../services/clienteService';
+import { getPaginationParams, buildPaginatedResult } from '../utils/pagination';
 
 const clienteService = new ClienteService();
 
@@ -15,9 +16,10 @@ export class ClienteController {
         }
 
     async listarClientes(req: Request, res: Response) {
-        const clientes = await clienteService.listarClientes();
+        const { page, limit, offset } = getPaginationParams(req.query);
+        const { rows, count } = await clienteService.listarClientes({ page, limit, offset });
 
-        return res.json(clientes);
+        return res.json(buildPaginatedResult(rows, count, page, limit));
     }
 
     async obterClientePorId(req: Request, res: Response) {

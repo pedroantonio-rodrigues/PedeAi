@@ -1,4 +1,5 @@
 import { Produto } from '../models/Produto';
+import { PaginationParams } from '../utils/pagination';
 
 const CAMPOS_PERMITIDOS = ["nome", "descricao", "preco", "estoque", "imagemUrl", "ativo"] as const;
 
@@ -16,8 +17,12 @@ class ProdutoService {
             fields: [...CAMPOS_PERMITIDOS],
         });
     }
-    async listarProdutos() {
-        return await Produto.findAll();
+    async listarProdutos({ limit, offset }: PaginationParams) {
+        return await Produto.findAndCountAll({
+            limit,
+            offset,
+            order: [["id", "ASC"]],
+        });
     }
     async obterProdutoPorId(id: number) {
         return await Produto.findByPk(id);
